@@ -44,6 +44,14 @@ Benchmark: $5,000 in SPY shares from Jan 2022 → about +78% (beat every option 
 - Profits came mostly from META and MSFT; TSLA, NVDA, AMD lost money in most versions.
 - No strategy came near 50%/month on average; earnings only occur in ~8 of 12 months.
 
+## Monthly straddles on cheaper stocks (tested 2026-09-25)
+Buy call + put at the same near-the-money strike, ~4 weeks out, every month; SOFI, RIVN, RIOT, SNAP, NIO, F.
+Sep 2025 – Aug 2026, 71 trades, avg cost ~$200 per straddle.
+- Every one of 48 exit-rule combinations lost money: best was +30% target, hold otherwise: −$694 (−5%).
+- Skipping earnings months: best −$115 (−1%) on 47 trades. Stop-losses and early exits made it worse.
+- Only RIOT made money (+$1,014, 10 of 12); SOFI −30%, SNAP −19%.
+- Why: outside earnings, these stocks rarely moved enough to beat the price paid for both options.
+
 ## Lessons
 - A stop based on a 6% stock drop costs ~40–80% on a 30-day option.
 - Cheap/illiquid option chains have wide spreads and bad prints; index ETFs are far more reliable.
