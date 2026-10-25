@@ -93,3 +93,30 @@ as one SPY call (~$1,300): 1 call, or 2 spreads / 2 iron condors.
 - The put credit spread won 12 of 14 rounds. Its one big loss (Feb 2026, SPY −6%) took back about 5 months of gains.
 - The iron condor lost 3 rounds in a row (Feb–Apr 2026) when SPY made big moves both ways.
 - Since June, SPY has mostly stayed between 740 and 780. That suits selling spreads and hurts buying calls.
+
+## Overnight research (2026-10-25): what actually holds up
+Same backtester (bid/ask cost $0.02 per leg). Put spread = sell a put ~3% below SPY, buy one $10 lower, ~4 weeks out,
+opened the Monday after each monthly expiration. "Stop 2x" = buy it back if it ever costs 2x what we collected
+(checked at each daily close). 2 spreads = ~$1,700 at risk.
+
+**SPY put spreads, 2 spreads, by exit rule (35 monthly rounds: 2022, Jan–Sep 2025, Sep 2025–Oct 2026)**
+| Exit rule | Recent 14 mo | 2022 (bear market) | 2025 (April crash) | All 35 | Wins | Worst month | Biggest drop from a high |
+|---|---|---|---|---|---|---|---|
+| Hold to expiration | +$1,448 | −$1,194 | −$1,326 | −$1,072 | 27/35 | −$1,730 | −$5,200 |
+| Stop at 3x credit | +$2,346 | +$294 | +$652 | +$3,292 | 27/35 | −$1,266 | −$2,448 |
+| **Stop at 2x credit** | +$744 | +$850 | +$1,296 | **+$2,890** | 23/35 | **−$680** | **−$1,228** |
+| Stop at 1.5x credit | +$70 | +$768 | +$678 | +$1,516 | 18/35 | −$560 | −$1,222 |
+| Take profit at 50% + stop 2x | −$210 | +$1,092 | +$404 | +$1,286 | 25/35 | −$680 | −$1,134 |
+- Without a stop, the recent year looked great but 2022 and 2025 lost money. **The stop is what makes this work.**
+- Stop 2x was profitable in all three periods. That's about $80/month on ~$1,700 at risk.
+
+**Other things tested (recent 14 months unless noted)**
+- Weekly SPY put spreads (2% below, $5 wide, 53 weeks): about breakeven (+$730 holding, −$100 to −$1,068 with stops).
+  Payments of ~$40 are too small after costs. Not worth it.
+- QQQ put spreads (x2, $10 wide): +$1,460 hold, +$1,686 with a 3x stop. OK, but no better than SPY, and riskier.
+- IWM put spreads (x4, $5 wide): −$1,904 hold, −$872 with a stop. Small caps fell below the strike too often.
+- Mixing SPY + QQQ + IWM: worse than SPY alone. In Feb 2026 everything fell together, including gold (−13%) and bonds (TLT −4%).
+- Bear call spreads (sell a call 3% above): +$1,654 over 14 months, but −$288 in the last 7.
+  Switching put/call spread by trend: +$796. Not tested on 2022/2025.
+- Iron condors held to expiration: +$2,744 over 14 months, but a −$3,490 drop from the high. Not stress-tested.
+- Buying calls / trend-switched calls or puts: lost money in the recent year (see above).
