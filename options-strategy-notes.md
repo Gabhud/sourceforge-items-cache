@@ -69,3 +69,27 @@ Cycle 2 (entry 10/19, expires 11/20), still open as of 10/23:
 - SIRI 25.5 put sold ~0.69–0.98, now ~0.44 (open interest 0, spread 0.03/0.85: hard to fill). KHC 22.5 put sold 0.45, now 0.18 (+$27).
 Total so far: conservative ≈ $0 (+$364 closed, −$390 open); best ≈ +$780. SPY shares over the same period: −0.8%.
 All three together need ~$6,000 of cash; with $5,000, run SPY plus one put.
+
+## Three alternatives vs. the current plan (tested 2026-10-25)
+SPY, 14 monthly rounds: buy/sell on the Monday after the monthly expiration (Sep 2025 – Oct 2026; the Nov round is still open,
+valued at the 10/23 close). $0.02 per leg added for the bid/ask gap. Each strategy sized to roughly the same amount at risk
+as one SPY call (~$1,300): 1 call, or 2 spreads / 2 iron condors.
+- A (current plan): 1 at-the-money call, sell at +25%.
+- T (trend switch): call if SPY is above its 50-day average, otherwise a put; sell at +25%.
+- CDS (call debit spread): buy the at-the-money call, sell the call $10 higher; sell at +25%. About $560 each.
+- PCS (put credit spread): sell a put 3% below SPY, buy a put $10 lower; buy back at 50% of the credit. Credit ~$100–200, risk ~$860 each.
+- IC (iron condor): the put spread above plus a call spread 3% above SPY; buy back at 50%. Credit ~$200–480, risk ~$660 each.
+
+| | A (1) | T (1) | CDS (x2) | PCS (x2) | IC (x2) |
+|---|---|---|---|---|---|
+| 13 finished rounds, conservative | −$348 | −$2,053 | +$520 | +$336 | +$414 |
+| Same, best case (fills on intraday high) | +$1,029 | −$677 | | | |
+| Including the open Nov round | −$768 | −$1,769 | +$292 | +$240 | +$466 |
+| Last 7 rounds (Apr–Oct 2026, current market) | −$1,426 | −$722 | −$790 | **+$890** | +$786 |
+| Losing rounds out of 14 | 4 | 4 | 4 | 2 | 3 |
+| Worst single round | −$1,312 | −$1,316 | −$1,176 | −$1,686 | −$1,266 |
+| Biggest drop from a high | −$2,230 | −$2,970 | −$1,582 | −$1,686 | −$3,490 |
+- The trend switch was the worst: the signal flipped right before rallies (Nov 2025) and right before drops.
+- The put credit spread won 12 of 14 rounds. Its one big loss (Feb 2026, SPY −6%) took back about 5 months of gains.
+- The iron condor lost 3 rounds in a row (Feb–Apr 2026) when SPY made big moves both ways.
+- Since June, SPY has mostly stayed between 740 and 780. That suits selling spreads and hurts buying calls.
