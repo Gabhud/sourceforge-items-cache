@@ -120,3 +120,18 @@ opened the Monday after each monthly expiration. "Stop 2x" = buy it back if it e
   Switching put/call spread by trend: +$796. Not tested on 2022/2025.
 - Iron condors held to expiration: +$2,744 over 14 months, but a −$3,490 drop from the high. Not stress-tested.
 - Buying calls / trend-switched calls or puts: lost money in the recent year (see above).
+
+## Refinements (2026-10-25), same 35 rounds, 2 spreads, stop 2x unless noted
+| Change | Total | Trades | Wins | Worst | Biggest drop from a high |
+|---|---|---|---|---|---|
+| Baseline (stop 2x) | +$2,890 | 35 | 23 | −$680 | −$1,228 |
+| Stop 2.5x instead | +$2,944 | 35 | 26 | −$1,266 | −$2,502 |
+| **Skip the month if SPY opens below its 20-day average** | **+$3,746** | 19 | 16 | **−$454** | **−$566** |
+| Skip if below 50-day average | +$2,214 | 20 | 15 | −$454 | −$566 |
+| Skip if below 200-day average | +$2,366 | 20 | 15 | −$452 | −$566 |
+| Also exit if SPY closes within 1% of the short strike | +$2,722 | 35 | 21 | −$560 | −$800 |
+- The 20-day filter helped in every period: 2022 +$850 → +$1,338, 2025 +$1,296 → +$1,342, recent +$744 → +$1,066.
+  But it trades only about half the months.
+- On 10/23, SPY closed at 759.97, below its 20-day average of 770.15, so the filter would skip the 10/26 entry.
+  The paper trade follows the base plan as agreed.
+- Paper trading started: daily scheduled task at 4:20 PM ET; ledger in paper/.
