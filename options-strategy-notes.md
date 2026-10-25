@@ -56,3 +56,16 @@ Sep 2025 – Aug 2026, 71 trades, avg cost ~$200 per straddle.
 - A stop based on a 6% stock drop costs ~40–80% on a 30-day option.
 - Cheap/illiquid option chains have wide spreads and bad prints; index ETFs are far more reliable.
 - Always check a strategy on a period that wasn't used to design it.
+
+## Forward paper check (2026-09-21 → 2026-10-23, no real orders)
+Cycle 1 (entry 9/21, expired 10/16), done:
+- SPY 766 call: bought 11.96 ($1,196); it closed at 15.94 the same day, so the +25% sell at 14.95 filled → **+$299**.
+  If held to expiration instead (SPY 763.25 < 766) → −$1,196. The target made the difference.
+- SIRI 26 put sold 0.40 → expired worthless → **+$40**. KHC 23 put sold 0.25 → expired worthless → **+$25**
+  (KHC fell to ~21.8 in early October but recovered).
+Cycle 2 (entry 10/19, expires 11/20), still open as of 10/23:
+- SPY 767 call bought 14.58 ($1,458). Its high on 10/21 was 18.28, just over the 18.23 target, but it closed at 17.43 that day.
+  Best case: filled, +$365. Conservative: still holding, value 10.42 → −$416.
+- SIRI 25.5 put sold ~0.69–0.98, now ~0.44 (open interest 0, spread 0.03/0.85: hard to fill). KHC 22.5 put sold 0.45, now 0.18 (+$27).
+Total so far: conservative ≈ $0 (+$364 closed, −$390 open); best ≈ +$780. SPY shares over the same period: −0.8%.
+All three together need ~$6,000 of cash; with $5,000, run SPY plus one put.
