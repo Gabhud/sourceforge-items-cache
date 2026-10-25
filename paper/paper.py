@@ -1,12 +1,14 @@
 """Paper-trading ledger for the SPY monthly put credit spread plan. No real orders.
 
-Rules: sell a put ~3% below SPY, buy one $10 lower, 2 spreads, ~4 weeks out.
+Rules: on each monthly entry day, only trade if SPY is above its 20-day average close.
+Sell a put ~3% below SPY, buy one $10 lower, 2 spreads, ~4 weeks out.
 Buy back if the cost to close (mid + $0.02/leg) reaches 2x the credit; otherwise let it expire.
 
 Usage:
   python3 paper.py open   DATE EXPIRY SPY SHORT_K LONG_K SHORT_MID LONG_MID [SHORT_BID LONG_ASK]
   python3 paper.py mark   DATE SPY SHORT_MID LONG_MID [SHORT_ASK LONG_BID]
   python3 paper.py settle DATE SPY_CLOSE_ON_EXPIRY
+  python3 paper.py skip   DATE SPY SMA20
 """
 import json, sys, os
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -56,11 +58,15 @@ def settle(L, date, spy):
     t.update(status='expired', closed=date, exit_debit=round(v, 2), spy_at_expiry=s, pnl=pnl)
     print(f'EXPIRED: SPY {s}, value {v:.2f}, P&L ${pnl}')
 
+def skip(L, date, spy, sma):
+    L.setdefault('skips', []).append(dict(date=date, spy=float(spy), sma20=float(sma)))
+    print(f'SKIPPED {date}: SPY {spy} below 20-day average {sma}')
+
 def write_readme(L):
     done = [t for t in L['trades'] if t['status'] != 'open']
     total = sum(t['pnl'] for t in done)
     lines = ['# Paper trading: SPY monthly put credit spreads', '',
-             'Paper only, no real orders. Rules: sell a put ~3% below SPY, buy one $10 lower, 2 spreads, ~4 weeks out; '
+             'Paper only, no real orders. Rules: trade only when SPY is above its 20-day average on the entry day; sell a put ~3% below SPY, buy one $10 lower, 2 spreads, ~4 weeks out; '
              'buy back if it costs 2x the credit, otherwise let it expire. Updated each weekday after the close.', '',
              f'**Closed trades: {len(done)}, total P&L ${total:+,}**', '',
              '| Opened | Expiry | Strikes | Credit (x2) | Stop at | Status | P&L |', '|---|---|---|---|---|---|---|']
@@ -69,6 +75,9 @@ def write_readme(L):
         pnl = f"${t['pnl']:+,}" if 'pnl' in t else (f"${last['open_pnl']:+,} (open)" if last else 'open')
         lines.append(f"| {t['opened']} | {t['expiry']} | {t['short_k']:.0f}/{t['long_k']:.0f} | "
                      f"${t['credit']*100*t['qty']:.0f} | {t['stop_debit']:.2f} | {t['status']} | {pnl} |")
+    if L.get('skips'):
+        lines += ['', '## Months skipped (SPY below its 20-day average)', '', '| Date | SPY | 20-day avg |', '|---|---|---|']
+        lines += [f"| {k['date']} | {k['spy']:.2f} | {k['sma20']:.2f} |" for k in L['skips']]
     if L['marks']:
         lines += ['', '## Daily marks (last 10)', '', '| Date | SPY | Cost to close | Open P&L |', '|---|---|---|---|']
         lines += [f"| {m['date']} | {m['spy']:.2f} | {m['debit']:.2f} | ${m['open_pnl']:+,} |" for m in L['marks'][-10:]]
@@ -76,5 +85,5 @@ def write_readme(L):
 
 if __name__ == '__main__':
     L = load(); cmd, args = sys.argv[1], sys.argv[2:]
-    {'open': open_trade, 'mark': mark, 'settle': settle}[cmd](L, *args)
+    {'open': open_trade, 'mark': mark, 'settle': settle, 'skip': skip}[cmd](L, *args)
     save(L)
