@@ -6,3 +6,9 @@ Paper only, no real orders. Rules: trade only when SPY is above its 20-day avera
 
 | Opened | Expiry | Strikes | Credit (x2) | Stop at | Status | P&L |
 |---|---|---|---|---|---|---|
+
+## Months skipped (SPY below its 20-day average)
+
+| Date | SPY | 20-day avg |
+|---|---|---|
+| 2026-10-26 | 765.29 | 770.15 |
