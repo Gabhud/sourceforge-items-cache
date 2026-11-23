@@ -12,3 +12,4 @@ Paper only, no real orders. Rules: trade only when SPY is above its 20-day avera
 | Date | SPY | 20-day avg |
 |---|---|---|
 | 2026-10-26 | 765.29 | 770.15 |
+| 2026-11-23 | 722.42 | 745.31 |
